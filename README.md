@@ -13,6 +13,7 @@ both Good and Bad responses are handled in the App.
 
 4) As you connect to each functionality built into the App, test both good and bad situations. As you build 
 functionality share:
-    a) Text describing the function
-    b) show snapshot of the code
-    c) show successful and unsuccessful tests look within your App..
+
+a) Text describing the function
+b) show snapshot of the code
+c) show successful and unsuccessful tests look within your App..
