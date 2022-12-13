@@ -82,7 +82,7 @@ if(isset($_POST["submitOrder"])){
     </center>
 
 
-    
+
 
 <!--*****************************************-->
 <!-- THIS FORM BELOW NEEDS TO GET REWORKED. -->
@@ -92,40 +92,50 @@ if(isset($_POST["submitOrder"])){
 
      <!--Enter Order Name Field -->
       <div class="form-group">
-        <label for="orderName">Enter Order Name: </label><label class="error-label">  </label>
-        <input type="text"  name="orderName" class="form-control formInput" id="orderName" placeholder="Order Name">
+        <label for="lastname">Enter Agent Last Name: </label><label class="error-label">  </label>
+        <input type="text"  name="lastname" class="form-control formInput" id="lastname" placeholder="Agent's Last Name">
+      </div>
+      <div class="form-group">
+        <label for="firstname">Enter Agent First Name: </label><label class="error-label">  </label>
+        <input type="text"  name="firstname" class="form-control formInput" id="firstname" placeholder="Agent's First Name">
+      </div>
+      <div class="form-group">
+        <label for="phone">Enter Phone Number: </label><label class="error-label">  </label>
+        <input type="text"  name="phone" class="form-control formInput" id="phone" placeholder="Agent's Phone Number">
+      </div>
+      <div class="form-group">
+        <label for="email">Enter E-Mail: </label><label class="error-label">  </label>
+        <input type="text"  name="email" class="form-control formInput" id="email" placeholder="Agent's email">
+      </div>
+      <div class="form-group">
+        <label for="relicense">Enter Real Estate License Number: </label><label class="error-label">  </label>
+        <input type="text"  name="relicense" class="form-control formInput" id="relicense" placeholder="Agent's Real Estate License #">
       </div>
 
-
-        <!--Enter Food Item Field -->
+      
+        <!-- Enter Food Item Field    -->
+        <!--
       <div class="form-group">
-        <label for="menuItem">Menu Item: </label><label class="error-label">  </label>
-        <select class="form-control formInput" id="menuItem"  name="menuItem">
+        <label for="firstname">Menu Item: </label><label class="error-label">  </label>
+        <select class="form-control formInput" id="firstname"  name="firstname">
 
         <option value="" disabled selected>Select an Option below</option>
+        -->
 
         <!-- Populate Select Tag from GET REQUEST with Food Items -->
-        <?php foreach ($GET_requestFoodData as $oneFoodItem):?>
+        
+        <!--
+             <?php foreach ($GET_requestFoodData as $oneFoodItem):?> 
 
           <option value="<?=$oneFoodItem["id"];?>" > <?=$oneFoodItem["title"];?> </option>
 
         <?php endforeach;?>
-
         </select>
-      </div>
+      </div>  
 
+       submit form button -->
 
-      <!-- Enter numeric quantity field -->
-      <div class="form-group">
-        <label for="quantity">Quantity:  </label> <label class="error-label">  </label>
-        
-        <input type="number"   name="quantity" class="form-control formInput" id="quantity" placeholder="Quantity">
-      </div>
-
-
-      <!-- submit form button -->
-
-      <button name="submitOrder" type="submit" class="btn bg-dark text-white submitOrderBtn" style="width:100%;">Submit Order</button>
+      <button name="submitAgent" type="submit" class="btn bg-dark text-white submitAgentbtn" style="width:100%;">Create Agent</button>
 
     </form>
   </div>
@@ -139,11 +149,11 @@ if(isset($_POST["submitOrder"])){
         
   let allErrorTags = document.querySelectorAll(".error-label") //all error tags
   let allFormInput = document.querySelectorAll(".formInput") //all form inputs 
-  let submitOrderBtn = document.querySelector(".submitOrderBtn") //Submit button
+  let submitAgentbtn = document.querySelector(".submitAgentbtn") //Submit button
 
 
   //When Submit button is pressed
-  submitOrderBtn.addEventListener("click", (event)=>{
+  submitAgentbtn.addEventListener("click", (event)=>{
 
     let doesFormErrorsExist = false; //clear all errors
 
@@ -164,24 +174,11 @@ if(isset($_POST["submitOrder"])){
 
 
     //Order Name Validation
-    let orderNameInput = allFormInput[0]
+    let agentPhone = allFormInput[0]
 
-    if(orderNameInput.value.length > 20){
+    if(agentPhone.value.length > 20){
 
       allErrorTags[0].innerHTML = "* Cannot Exceed 20 Chars"
-      doesFormErrorsExist = true;
-    }
-
-
-
-    //Quantity  Validation
-    let quantityInput = allFormInput[2]
-
-    if((parseInt(quantityInput.value) > 100) || (parseInt(quantityInput.value) <= 0)){
-
-      let errorTagOfInput = allErrorTags[Array.from(allFormInput).indexOf(quantityInput)]
-      errorTagOfInput.innerHTML = "*Must be a number between 1 - 100"
-
       doesFormErrorsExist = true;
     }
 
