@@ -1,35 +1,19 @@
 <?php
 session_start(); 
 include 'API_Functions.php';
-
 $APIAgentFetchURL = 'https://localhost:5001/api/Agent';
 $APIPropertyListingPostURL = "https://localhost:5001/api/PropertyListing"; //check this is correct?
-
 $GET_requestPropertyData = GET_CurlAPIRequest($APIPropertyListingPostURL);
-
-
 if (isset($_POST['edit'])) {
-
     $itemId = filter_input(INPUT_POST, 'itemId');
-
     $_SESSION['tempId'] = $itemId;
-
     header("Location: PostPropertyListingForm.php?edit=true");
-
-
 }else if (isset($_POST['delete'])){
-
- 
   $itemId = filter_input(INPUT_POST, 'itemId');
   $results = DELETE_ONE_CurlAPIRequest($APIPropertyListingPostURL, $itemId);
-
   header("Location: GetAllProperties.php");
 }
-
 ;?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,36 +33,19 @@ if (isset($_POST['edit'])) {
         width: 40%;
         height: 100px;
       }
-
       .error-label{
         color:red;
       }
-
     </style>
 </head>
 <body>
-
-
 <?php include 'Resources/includes/header.php';?>
-
   <div class="form-div" >
-
-
-  
     <!--Title Section of Post Food Form -->
     <center>
       <h4>Get All Property Listings</h4>
       <h6>By Michael Lopez & Saimer Nieves</h6><br>
     </center>
-
-
-
-
-<!--*****************************************-->
-<!-- THIS FORM BELOW NEEDS TO GET REWORKED. -->
-<!--*****************************************-->
-
-
     <?php foreach ($GET_requestPropertyData as $oneProperty):?> 
 
       <?php 
@@ -91,27 +58,22 @@ if (isset($_POST['edit'])) {
       <div class="row" style="margin:50px;">
         <div class="card col-6" >
           <img class="card-img-top" src="<?= $APIImage;?>" alt="Card image cap">
-         
+        
         </div>
         <div class="card col-6" >
           <div class="card-body center">
-
             <div class="text-center">
               <p class="card-title "><b><?= $oneProperty["address"];?><br> <?= $oneProperty["city"];?>, <?= $oneProperty["state"];?>  <?= $oneProperty["zip"];?></b></p><br>
             </div>
-
             <div class="row" > 
               <h6 class="col-6">Beds: <?= $oneProperty["beds"];?></h6>
               <h6 class="col-6">Baths: <?= $oneProperty["baths"];?></h6>
             </div>
-
             <div class="row" > 
               <h6 class="col-6">sqft: <?= $oneProperty["sqft"];?></h6>
               <h6 class="col-6">Price: <?= $oneProperty["price"];?></h6>
             </div>
-
             <br>
-
             <div class="row" >
               <?php
                 $datetime = new DateTime($oneProperty["listingDate"]);

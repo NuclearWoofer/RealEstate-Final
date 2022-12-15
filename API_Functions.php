@@ -1,6 +1,4 @@
 <?php
-
-
 function POST_CurlAPIRequest($postURL, $postData){
 
     
@@ -21,7 +19,6 @@ function POST_CurlAPIRequest($postURL, $postData){
 
 
 }
-
 
 function PUT_CurlAPIRequest($putURL, $putData){
 
@@ -45,10 +42,6 @@ function PUT_CurlAPIRequest($putURL, $putData){
 
 
 }
-
-
-
-
 function GET_CurlAPIRequest($getURL){
     
     //Initialize Curl Instance
@@ -73,14 +66,9 @@ function GET_CurlAPIRequest($getURL){
     return $GET_requestResponse;
 }
 
-
 function GET_ONE_CurlAPIRequest($getURL, $id){
-
-
- 
     //Initialize Curl Instance
     $curl_Instance =curl_init();
-
     //Set Curl Headers/Request
     curl_setopt($curl_Instance, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($curl_Instance, CURLOPT_RETURNTRANSFER, true);

@@ -46,23 +46,15 @@ if(isset($_POST["submitBooking"])){
     "booking_DateTime"=>  $datetime,
     "client_ID"=>  $client_ID
   ];
-
   if ($isEditing) {
     $postResults = PUT_CurlAPIRequest($APIBookingPostURL, $dataToPost);
-
   }
   else{
     $postResults = POST_CurlAPIRequest($APIBookingPostURL, $dataToPost);
   }
-
   header("Location: GetAllBookings.php");
-
 }
-
 ;?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,34 +74,20 @@ if(isset($_POST["submitBooking"])){
         width: 40%;
         height: 100px;
       }
-
       .error-label{
         color:red;
       }
-
     </style>
 </head>
 <body>
-
 <?php include 'Resources/includes/header.php';?>
-
-
   <div class="form-div" >
 
-
-  
     <!--Title Section of Post Food Form -->
     <center>
       <h4>Post Booking Form</h4>
       <h6>By Michael Lopez & Saimer Nieves</h6>
     </center>
-
-
-
-
-<!--*****************************************-->
-<!-- THIS FORM BELOW NEEDS TO GET REWORKED. -->
-<!--*****************************************-->
     <form  class="contact-form style-2" method="post" action = "" enctype="multipart/form-data">
 
 
@@ -169,12 +147,9 @@ if(isset($_POST["submitBooking"])){
 
   //When Submit button is pressed
   submitAgentbtn.addEventListener("click", (event)=>{
-
     let doesFormErrorsExist = false; //clear all errors
-
     //Clear all errors and check all for emptyness
     allFormInput.forEach((oneInput)=>{
-
       let errorTagOfInput = allErrorTags[Array.from(allFormInput).indexOf(oneInput)]
       errorTagOfInput.innerHTML = ""
 
@@ -184,10 +159,6 @@ if(isset($_POST["submitBooking"])){
         doesFormErrorsExist = true;
       }
     });
-
-
-
-
     //Order Name Validation
     let agentPhone = allFormInput[0]
 
@@ -204,20 +175,10 @@ if(isset($_POST["submitBooking"])){
       event.preventDefault();
     }
   })
-
-  
-  
-
   <?php if ($isEditing) :?>
-
   let propertyDropDown = document.querySelector(".propertyDropDown")
-
   for (var i=0; i<propertyDropDown.length; i++) {
-
-
   if (propertyDropDown.options[0].value != 'property'){
-
-
   console.log(propertyDropDown.options[0])
   if(propertyDropDown.options[0].value == propertyDropDown.options[i].value){
 

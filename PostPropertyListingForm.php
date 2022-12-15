@@ -192,18 +192,10 @@ if(isset($_POST["submitPropertyListing"])){
       <h6>By Michael Lopez & Saimer Nieves</h6>
     </center>
 
-
-
-
-<!--*****************************************-->
-<!-- THIS FORM BELOW NEEDS TO GET REWORKED. -->
-<!--*****************************************-->
     <form  class="contact-form style-2" method="post" action = "" enctype="multipart/form-data" style="margin:10px;">
 
 
      <!--Enter Order Name Field -->
-
-
      <div class="form-group">
         <label for="">Address : </label><label class="error-label">  </label>
         <input type="text"  name="address" class="form-control formInput" id="" placeholder="" required value="<?php echo (($isEditing)) ?  $tempEdits["address"] : "";?>">
@@ -333,152 +325,87 @@ if(isset($_POST["submitPropertyListing"])){
       console.log(URL.createObjectURL(event.target.files[0]))
       propertyImageDisplayURL.value = (URL.createObjectURL(event.target.files[0]))
   });
-
-        
   let allErrorTags = document.querySelectorAll(".error-label") //all error tags
   let allFormInput = document.querySelectorAll(".formInput") //all form inputs 
   let submitPropertybtn = document.querySelector(".submitPropertybtn") //Submit button
-
-
   //When Submit button is pressed
   submitPropertybtn.addEventListener("click", (event)=>{
-
     let doesFormErrorsExist = false; //clear all errors
-
     allFormInput.forEach((oneInput)=>{
-
       console.log(Array.from(allFormInput).indexOf(oneInput))
-
       let errorTagOfInput = allErrorTags[Array.from(allFormInput).indexOf(oneInput)]
       errorTagOfInput.innerHTML = ""
-
       if( (Array.from(allFormInput).indexOf(oneInput) != 11) && ((oneInput.value.length > 0) == false) ){
-
         errorTagOfInput.innerHTML = "* This field is required"
         doesFormErrorsExist = true;
       }
     });
-
-
     let agentPhone = allFormInput[0]
-
     if(agentPhone.value.length > 20){
-
       allErrorTags[0].innerHTML = "* Cannot Exceed 20 Chars"
       doesFormErrorsExist = true;
     }
-
     //Prevent Post event if errors are found
     if(doesFormErrorsExist){
-
       event.preventDefault();
     }
   })
-
-
 </script>
-
 <script>
-
   let stateDropDown = document.querySelector(".stateDropDown")
-
-
   let allStates = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
-
   allStates.forEach((oneState) => {
-
     let oneOption = document.createElement('option');
     oneOption.innerHTML = oneState;
     oneOption.setAttribute("value", oneState);
     stateDropDown.appendChild(oneOption)
   })
-
   <?php if ($isEditing) :?>
-
     for (var i=0; i<stateDropDown.length; i++) {
-
-
       if (stateDropDown.options[0].value != 'state'){
-
-
         console.log(stateDropDown.options[0].text)
         if(stateDropDown.options[0].text == stateDropDown.options[i].value){
-
           let valueToSelect = stateDropDown.options[i].value
           stateDropDown.options[0].remove();
-          
           stateDropDown.value = valueToSelect;
-
           break;
         }
       }
     }
     <?php endif;?>
-
-
   let typeDropDown = document.querySelector(".typeDropDown")
-
-
   let allPropertyTypes = ['Single-Family','Multi-Family', 'Appartments', 'Single-Appartment','Condo', 'Ranch','Cabin','Farm','Mansion']
-
   allPropertyTypes.forEach((oneProperty) => {
-
     let oneOption = document.createElement('option');
     oneOption.innerHTML = oneProperty;
     oneOption.setAttribute("value", oneProperty);
     typeDropDown.appendChild(oneOption)
   })
-
-
   <?php if ($isEditing) :?>
-
 for (var i=0; i<typeDropDown.length; i++) {
-
-
   if (typeDropDown.options[0].value != 'type'){
-
-
     console.log(typeDropDown.options[0].text)
     if(typeDropDown.options[0].text == typeDropDown.options[i].value){
-
       let valueToSelect = typeDropDown.options[i].value
       typeDropDown.options[0].remove();
-      
       typeDropDown.value = valueToSelect;
-
       break;
     }
   }
 }
 <?php endif;?>
-
-
-
-
 <?php if ($isEditing) :?>
-
   let agentDropDown = document.querySelector(".agentDropDown")
-
 for (var i=0; i<agentDropDown.length; i++) {
-
-
 if (agentDropDown.options[0].value != 'type'){
-
-
   console.log(agentDropDown.options[0].text)
   if(agentDropDown.options[0].value == agentDropDown.options[i].value){
-
     let valueToSelect = agentDropDown.options[i].value
     agentDropDown.options[0].remove();
-    
     agentDropDown.value = valueToSelect;
-
     break;
   }
 }
 }
 <?php endif;?>
-
-
-
 </script>

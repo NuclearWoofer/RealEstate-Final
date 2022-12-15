@@ -1,35 +1,19 @@
 <?php
 session_start(); 
 include 'API_Functions.php';
-
 $APIClientFetchURL = 'https://localhost:5001/api/Client';
-
 $GET_requestAgentData = GET_CurlAPIRequest($APIClientFetchURL);
-
-
 if (isset($_POST['edit'])) {
-
   $itemId = filter_input(INPUT_POST, 'itemId');
-
   $_SESSION['tempIdClient'] = $itemId;
-
   header("Location: PostClientForm.php?edit=true");
-
-
 }else if (isset($_POST['delete'])){
-
   $itemId = filter_input(INPUT_POST, 'itemId');
-
   $results = DELETE_ONE_CurlAPIRequest($APIClientFetchURL, $itemId);
-
   header("Location: GetAllClients.php");
 
 }
-
 ;?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,28 +41,14 @@ if (isset($_POST['edit'])) {
     </style>
 </head>
 <body>
-
-
 <?php include 'Resources/includes/header.php';?>
 
   <div class="form-div" >
-
-
-  
     <!--Title Section of Post Food Form -->
     <center>
       <h4>Get All Clients Table</h4>
       <h6>By Michael Lopez & Saimer Nieves</h6><br>
     </center>
-
-
-
-
-<!--*****************************************-->
-<!-- THIS FORM BELOW NEEDS TO GET REWORKED. -->
-<!--*****************************************-->
-
-
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -92,9 +62,7 @@ if (isset($_POST['edit'])) {
     </tr>
   </thead>
   <tbody>
-
     <?php foreach ($GET_requestAgentData as $oneAgent):?> 
-
       <tr>
         <th scope="row"><?= $oneAgent["id"];?></th>
         <td><?= $oneAgent["firstname"];?></td>
@@ -107,18 +75,13 @@ if (isset($_POST['edit'])) {
             <input type="text" name="itemId" value="<?php echo $oneAgent["id"];?>" readonly style="display:none">
             <button  name="edit" type="submit" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Edit">EDIT</button>
           </td>
-
           <td>
             <input type="text" name="itemId" value="<?php echo $oneAgent["id"];?>" readonly style="display:none">
             <button  name="delete" type="submit" class="btn btn-danger btn-sm rounded-0"data-toggle="tooltip" data-placement="top" title="Delete">DELETE</button>
           </td>
-
         </form>
       </tr>
-
     <?php endforeach;?>
-    
- 
   </tbody>
 </table>
 </div>

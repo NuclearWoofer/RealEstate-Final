@@ -1,23 +1,15 @@
 <?php
 session_start(); 
 include 'API_Functions.php';
-
 $APIClientFetchURL = 'https://localhost:5001/api/Client';
-
 $isEditing = false;
-
 if (isset($_GET["edit"])){
-
   $isEditing = htmlspecialchars($_GET["edit"]);
-
   if($isEditing){
-
     $tempId = $_SESSION['tempIdClient'];
     $tempEdits = GET_ONE_CurlAPIRequest($APIClientFetchURL, $tempId);
   }
 }
-
-
 //POST Button request
 if(isset($_POST["submitClient"])){
 
@@ -34,26 +26,15 @@ if(isset($_POST["submitClient"])){
     "email"=>  $input_email,
     "phone"=>  $input_phone
   ];
-
-  
   if ($isEditing) {
-
     $postResults = PUT_CurlAPIRequest($APIClientFetchURL, $dataToPost);
-
   }
   else{
-
     $postResults = POST_CurlAPIRequest($APIClientFetchURL, $dataToPost);
-
   }
-
   header("Location: GetAllClients.php");
 }
-
 ;?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,34 +62,19 @@ if(isset($_POST["submitClient"])){
     </style>
 </head>
 <body>
-
 <?php include 'Resources/includes/header.php';?>
-
-
   <div class="form-div" >
-
     <!--Title Section of Post Food Form -->
     <center>
       <h4>Post Client Form</h4>
       <h6>By Michael Lopez & Saimer Nieves</h6>
     </center>
-
-
-
-
-<!--*****************************************-->
-<!-- THIS FORM BELOW NEEDS TO GET REWORKED. -->
-<!--*****************************************-->
     <form  class="contact-form style-2" method="post" action = "" enctype="multipart/form-data">
-
-
      <!--Enter Order Name Field -->
-
      <div class="form-group">
         <label for="firstname">Enter Client First Name: </label><label class="error-label">  </label>
         <input type="text"  name="firstname" class="form-control formInput" id="firstname" placeholder="Client's First Name" value="<?php echo (($isEditing)) ?  $tempEdits["firstname"] : "";?>">
       </div>
-
       <div class="form-group">
         <label for="lastname">Enter Client Last Name: </label><label class="error-label">  </label>
         <input type="text"  name="lastname" class="form-control formInput" id="lastname" placeholder="Client's Last Name" value="<?php echo (($isEditing)) ?  $tempEdits["lastname"] : "";?>">
