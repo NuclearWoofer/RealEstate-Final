@@ -74,11 +74,11 @@ if(isset($_POST["submitAgent"])){
      <!--Enter Order Name Field -->
       <div class="form-group">
         <label for="firstname">Enter Agent First Name: </label><label class="error-label">  </label>
-        <input type="text"  name="firstname" class="form-control formInput" id="firstname" placeholder="Agent's First Name" value="<?php echo (($isEditing)) ?  $tempEdits["firstname"] : "";?>">
+        <input maxlength="75" type="text"  name="firstname" class="form-control formInput" id="firstname" placeholder="Agent's First Name" value="<?php echo (($isEditing)) ?  $tempEdits["firstname"] : "";?>">
       </div>
       <div class="form-group">
         <label for="lastname">Enter Agent Last Name: </label><label class="error-label">  </label>
-        <input type="text"  name="lastname" class="form-control formInput" id="lastname" placeholder="Agent's Last Name" value="<?php echo (($isEditing)) ?  $tempEdits["lastname"] : "";?>">
+        <input maxlength="75" type="text"  name="lastname" class="form-control formInput" id="lastname" placeholder="Agent's Last Name" value="<?php echo (($isEditing)) ?  $tempEdits["lastname"] : "";?>">
       </div>
       <div class="form-group">
         <label for="phone">Enter Phone Number: </label><label class="error-label">  </label>
@@ -86,13 +86,20 @@ if(isset($_POST["submitAgent"])){
       </div>
       <div class="form-group">
         <label for="email">Enter E-Mail: </label><label class="error-label">  </label>
-        <input type="text"  name="email" class="form-control formInput" id="email" placeholder="Agent's email" value="<?php echo (($isEditing)) ?  $tempEdits["email"] : "";?>">
+        <input maxlength="200" type="text"  name="email" class="form-control formInput" id="email" placeholder="Agent's email" value="<?php echo (($isEditing)) ?  $tempEdits["email"] : "";?>">
       </div>
       <div class="form-group">
         <label for="relicense">Enter Real Estate License Number: </label><label class="error-label">  </label>
         <input type="text"  name="relicence" class="form-control formInput" id="relicense" placeholder="Agent's Real Estate License #" value="<?php echo (($isEditing)) ?  $tempEdits["reLicense"] : "";?>">
       </div>
+<<<<<<< HEAD
       <button name="submitAgent" type="submit" class="btn bg-dark text-white submitAgentbtn" style="width:100%;">Create Agent</button>
+=======
+
+
+      <button name="submitAgent" type="submit" class="btn bg-dark text-white submitAgentbtn" style="width:100%;">Submit</button>
+
+>>>>>>> da9427694a7417ae256eaf4823fc0ae5de00df66
     </form>
   </div>
 </body>
@@ -116,11 +123,60 @@ if(isset($_POST["submitAgent"])){
       }
     });
     //Order Name Validation
+<<<<<<< HEAD
     let agentPhone = allFormInput[0]
     if(agentPhone.value.length > 20){
       allErrorTags[0].innerHTML = "* Cannot Exceed 20 Chars"
       doesFormErrorsExist = true;
     }
+=======
+    let inputData = allFormInput[0]
+
+    if(inputData.value.length > 20){
+
+      allErrorTags[0].innerHTML = "* Cannot Exceed 20 Chars"
+      doesFormErrorsExist = true;
+    }
+
+    let inputData1 = allFormInput[1]
+
+    if(inputData1.value.length > 20){
+
+      allErrorTags[1].innerHTML = "* Cannot Exceed 20 Chars"
+      doesFormErrorsExist = true;
+    }
+
+
+    let inputData2 = allFormInput[2]
+
+    if(inputData2.value.length > 15){
+
+      allErrorTags[2].innerHTML = "* Cannot Exceed 15 Chars"
+      doesFormErrorsExist = true;
+    }
+
+
+    
+    let inputData3 = allFormInput[3]
+
+    if(inputData3.value.length > 60){
+
+      allErrorTags[3].innerHTML = "* Cannot Exceed 60 Chars"
+      doesFormErrorsExist = true;
+    }
+
+        
+    let inputData4 = allFormInput[4]
+
+    if(inputData4.value.length > 8){
+
+      allErrorTags[4].innerHTML = "* Cannot Exceed 8 Chars"
+      doesFormErrorsExist = true;
+    }
+
+
+
+>>>>>>> da9427694a7417ae256eaf4823fc0ae5de00df66
     //Prevent Post event if errors are found
     if(doesFormErrorsExist){
       event.preventDefault();

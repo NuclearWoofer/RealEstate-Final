@@ -158,6 +158,19 @@ if(isset($_POST["submitBooking"])){
         errorTagOfInput.innerHTML = "* This field is required"
         doesFormErrorsExist = true;
       }
+
+
+      if( (Array.from(allFormInput).indexOf(oneInput) == 0) && ((oneInput.value == "property" ) ) ){
+
+      errorTagOfInput.innerHTML = "* This field is required"
+      doesFormErrorsExist = true;
+      }
+
+      if( (Array.from(allFormInput).indexOf(oneInput) == 2) && ((oneInput.value == "client" ) ) ){
+
+      errorTagOfInput.innerHTML = "* This field is required"
+      doesFormErrorsExist = true;
+      }
     });
     //Order Name Validation
     let agentPhone = allFormInput[0]
