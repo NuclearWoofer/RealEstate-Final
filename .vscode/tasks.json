@@ -13,7 +13,7 @@
             "command": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
         },
         "args": [
-            "http://localhost:88/WEBSERVICE-TEAMLAB/${relativeFile}"  //This may be wrong lol
+            "http://localhost:88/REALESTATE-FINAL/${relativeFile}"  //This may be wrong lol
 
             //Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=RealEstateListingDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
 

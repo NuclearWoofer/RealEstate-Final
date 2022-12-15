@@ -1,18 +1,26 @@
 <?php
-
+session_start(); 
 include 'API_Functions.php';
 
+
 $APIAgentFetchURL = 'https://localhost:5001/api/Agent';
-$APIBookingPostURL = "https://localhost:5001/api/Booking";
-$APIPropertyListingPostURL = "https://localhost:5001/api/PropertyListing"; //check this is correct?
-$APIClientPostURL = "https://localhost:5001/api/Client";
+
+$isEditing = false;
+
+if (isset($_GET["edit"])){
+
+  $isEditing = htmlspecialchars($_GET["edit"]);
+
+  if($isEditing){
+
+    $tempId = $_SESSION['tempIdAgent'];
+
+    $tempEdits = GET_ONE_CurlAPIRequest($APIAgentFetchURL, $tempId);
+  }
+}
 
 
-
-$GET_requestAgentData = GET_CurlAPIRequest($APIAgentFetchURL);
-
-//POST Button request
-if(isset($_POST["submitOrder"])){
+if(isset($_POST["submitAgent"])){
 
   //Retreive Data from form to post
   $input_lastname = filter_input(INPUT_POST, "lastname"); //Agent last name
@@ -22,27 +30,34 @@ if(isset($_POST["submitOrder"])){
   $input_relicence = filter_input(INPUT_POST, "relicence"); //Agent Real Estate License
 
 
-  //Display to ensure form is working
-  // echo "input_orderName: ". $input_orderName ."<br>";
-  // echo "input_menuItem: ". $input_menuItem ."<br>";
-  // echo "input_quantity: ". $input_quantity ."<br>";
+  // exit();
 
   $dataToPost = [
+    "id" => $isEditing ? $tempId : 0,
     "lastname" => $input_lastname,
     "firstname" => $input_firstname,
     "email"=>  $input_email,
     "phone"=>  $input_phone,
-    "relicence"=>  $input_relicence
+    "reLicense"=>  $input_relicence
   ];
 
+  
+  if ($isEditing) {
 
-  $postResults = POST_CurlAPIRequest($APIAgentPostURL, $dataToPost);
-  // var_dump($postResults);
+    $postResults = PUT_CurlAPIRequest($APIAgentFetchURL, $dataToPost);
+
+  }
+  else{
+
+    $postResults = POST_CurlAPIRequest($APIAgentFetchURL, $dataToPost);
+
+  }
+
+  header("Location: GetAllAgents.php");
 
 }
 
 ;?>
-
 
 
 <!DOCTYPE html>
@@ -52,10 +67,11 @@ if(isset($_POST["submitOrder"])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>POST AGENT FORM </title>
     <style>
       .form-div{
-        position: absolute;
+        position: relative;
         top: 10%;
         left: 30%;
         margin-top: -50px;
@@ -72,7 +88,11 @@ if(isset($_POST["submitOrder"])){
 </head>
 <body>
 
+
+<?php include 'Resources/includes/header.php';?>
+
   <div class="form-div" >
+
 
   
     <!--Title Section of Post Food Form -->
@@ -91,49 +111,28 @@ if(isset($_POST["submitOrder"])){
 
 
      <!--Enter Order Name Field -->
-      <div class="form-group">
-        <label for="lastname">Enter Agent Last Name: </label><label class="error-label">  </label>
-        <input type="text"  name="lastname" class="form-control formInput" id="lastname" placeholder="Agent's Last Name">
-      </div>
+
       <div class="form-group">
         <label for="firstname">Enter Agent First Name: </label><label class="error-label">  </label>
-        <input type="text"  name="firstname" class="form-control formInput" id="firstname" placeholder="Agent's First Name">
+        <input type="text"  name="firstname" class="form-control formInput" id="firstname" placeholder="Agent's First Name" value="<?php echo (($isEditing)) ?  $tempEdits["firstname"] : "";?>">
+      </div>
+      <div class="form-group">
+        <label for="lastname">Enter Agent Last Name: </label><label class="error-label">  </label>
+        <input type="text"  name="lastname" class="form-control formInput" id="lastname" placeholder="Agent's Last Name" value="<?php echo (($isEditing)) ?  $tempEdits["lastname"] : "";?>">
       </div>
       <div class="form-group">
         <label for="phone">Enter Phone Number: </label><label class="error-label">  </label>
-        <input type="text"  name="phone" class="form-control formInput" id="phone" placeholder="Agent's Phone Number">
+        <input type="text"  name="phone" class="form-control formInput" id="phone" placeholder="Agent's Phone Number" value="<?php echo (($isEditing)) ?  $tempEdits["phone"] : "";?>">
       </div>
       <div class="form-group">
         <label for="email">Enter E-Mail: </label><label class="error-label">  </label>
-        <input type="text"  name="email" class="form-control formInput" id="email" placeholder="Agent's email">
+        <input type="text"  name="email" class="form-control formInput" id="email" placeholder="Agent's email" value="<?php echo (($isEditing)) ?  $tempEdits["email"] : "";?>">
       </div>
       <div class="form-group">
         <label for="relicense">Enter Real Estate License Number: </label><label class="error-label">  </label>
-        <input type="text"  name="relicense" class="form-control formInput" id="relicense" placeholder="Agent's Real Estate License #">
+        <input type="text"  name="relicence" class="form-control formInput" id="relicense" placeholder="Agent's Real Estate License #" value="<?php echo (($isEditing)) ?  $tempEdits["reLicense"] : "";?>">
       </div>
 
-      
-        <!-- Enter Food Item Field    -->
-        <!--
-      <div class="form-group">
-        <label for="firstname">Menu Item: </label><label class="error-label">  </label>
-        <select class="form-control formInput" id="firstname"  name="firstname">
-
-        <option value="" disabled selected>Select an Option below</option>
-        -->
-
-        <!-- Populate Select Tag from GET REQUEST with Food Items -->
-        
-        <!--
-             <?php foreach ($GET_requestFoodData as $oneFoodItem):?> 
-
-          <option value="<?=$oneFoodItem["id"];?>" > <?=$oneFoodItem["title"];?> </option>
-
-        <?php endforeach;?>
-        </select>
-      </div>  
-
-       submit form button -->
 
       <button name="submitAgent" type="submit" class="btn bg-dark text-white submitAgentbtn" style="width:100%;">Create Agent</button>
 
@@ -196,3 +195,6 @@ if(isset($_POST["submitOrder"])){
   
 
 </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
