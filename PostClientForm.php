@@ -124,7 +124,7 @@ if(isset($_POST["submitClient"])){
         <input type="text"  name="email" class="form-control formInput" id="email" placeholder="Client's email" value="<?php echo (($isEditing)) ?  $tempEdits["email"] : "";?>">
       </div>
 
-      <button name="submitClient" type="submit" class="btn bg-dark text-white submitClientbtn" style="width:100%;">Create Client</button>
+      <button name="submitClient" type="submit" class="btn bg-dark text-white submitClientbtn" style="width:100%;">Submit</button>
 
     </form>
   </div>
@@ -168,6 +168,30 @@ if(isset($_POST["submitClient"])){
     if(ClientPhone.value.length > 20){
 
       allErrorTags[0].innerHTML = "* Cannot Exceed 20 Chars"
+      doesFormErrorsExist = true;
+    }
+
+    let inputDat1= allFormInput[1]
+
+    if(inputDat1.value.length > 20){
+
+      allErrorTags[1].innerHTML = "* Cannot Exceed 20 Chars"
+      doesFormErrorsExist = true;
+    }
+
+    let inputData2= allFormInput[2]
+
+    if(inputData2.value.length > 12){
+
+      allErrorTags[2].innerHTML = "* Cannot Exceed 12 Chars"
+      doesFormErrorsExist = true;
+    }
+
+    let inputData3= allFormInput[3]
+
+    if(inputData3.value.length > 60){
+
+      allErrorTags[3].innerHTML = "* Cannot Exceed 60 Chars"
       doesFormErrorsExist = true;
     }
 

@@ -236,7 +236,7 @@ if(isset($_POST["submitPropertyListing"])){
 
       <div class="form-group col-3">
           <label for="">Beds : </label><label class="error-label">  </label>
-          <input type="number"  name="beds" class="form-control formInput" id="" placeholder="" value="<?php echo (($isEditing)) ?  $tempEdits["beds"] : "";?>">
+          <input type="number" min="0" name="beds" class="form-control formInput" id="" placeholder="" value="<?php echo (($isEditing)) ?  $tempEdits["beds"] : "";?>">
         </div>
 
         <div class="form-group col-3">
@@ -267,7 +267,7 @@ if(isset($_POST["submitPropertyListing"])){
          
         <select class="form-control formInput typeDropDown" name="type" id="">
            
-            <?php echo (($isEditing)) ?  " <option  value=".$tempEdits["type"].">".$tempEdits["type"]."</option>"  : " <option selected disabled value='State'>Select a Type</option>";?>
+            <?php echo (($isEditing)) ?  " <option  value=".$tempEdits["type"].">".$tempEdits["type"]."</option>"  : " <option selected disabled value='type'>Select a Type</option>";?>
 
           </select>
       </div>
@@ -306,7 +306,7 @@ if(isset($_POST["submitPropertyListing"])){
       </div>
 
 
-      <button name="submitPropertyListing" type="submit" class="btn bg-dark text-white submitPropertybtn" style="width:100%;">Create Agent</button>
+      <button name="submitPropertyListing" type="submit" class="btn bg-dark text-white submitPropertybtn" style="width:100%;">Submit</button>
 
     </form>
   </div>
@@ -340,6 +340,7 @@ if(isset($_POST["submitPropertyListing"])){
   let submitPropertybtn = document.querySelector(".submitPropertybtn") //Submit button
 
 
+  console.log(allFormInput)
   //When Submit button is pressed
   submitPropertybtn.addEventListener("click", (event)=>{
 
@@ -357,16 +358,112 @@ if(isset($_POST["submitPropertyListing"])){
         errorTagOfInput.innerHTML = "* This field is required"
         doesFormErrorsExist = true;
       }
+
+      if( (Array.from(allFormInput).indexOf(oneInput) == 2) && ((oneInput.value == "State" ) ) ){
+
+      errorTagOfInput.innerHTML = "* This field is required"
+      doesFormErrorsExist = true;
+      }
+
+      if( (Array.from(allFormInput).indexOf(oneInput) == 9) && ((oneInput.value == "type" ) ) ){
+
+      errorTagOfInput.innerHTML = "* This field is required"
+      doesFormErrorsExist = true;
+      }
+
+      if( (Array.from(allFormInput).indexOf(oneInput) == 10) && ((oneInput.value == "agent" ) ) ){
+
+      errorTagOfInput.innerHTML = "* This field is required"
+      doesFormErrorsExist = true;
+      }
+
+      if( (Array.from(allFormInput).indexOf(oneInput) == 8) && ((oneInput.value == 0 ) ) ){
+
+      errorTagOfInput.innerHTML = "* This field is required"
+      doesFormErrorsExist = true;
+      }
+
+      <?php if (!$isEditing) :?>
+        if( (Array.from(allFormInput).indexOf(oneInput) == 11) && ((oneInput.value == "" ) ) ){
+
+        errorTagOfInput.innerHTML = "* This field is required"
+        doesFormErrorsExist = true;
+        }
+
+      <?php endif;?>
+
     });
 
 
-    let agentPhone = allFormInput[0]
+    let inputData = allFormInput[0]
 
-    if(agentPhone.value.length > 20){
+    if(inputData.value.length > 60){
 
-      allErrorTags[0].innerHTML = "* Cannot Exceed 20 Chars"
+      allErrorTags[0].innerHTML = "* Cannot Exceed 60 Chars"
       doesFormErrorsExist = true;
     }
+
+    let inputData1 = allFormInput[1]
+
+    if(inputData1.value.length > 30){
+
+      allErrorTags[1].innerHTML = "* Cannot Exceed 30 Chars"
+      doesFormErrorsExist = true;
+    }
+
+    let inputData3 = allFormInput[3]
+
+if(inputData3.value.length > 5){
+
+  allErrorTags[3].innerHTML = "* Cannot Exceed 5 Chars"
+  doesFormErrorsExist = true;
+}
+
+
+let inputData4 = allFormInput[4]
+
+if(inputData4.value > 100){
+
+  allErrorTags[4].innerHTML = "* Cannot Exceed 100 Beds"
+  doesFormErrorsExist = true;
+}
+
+
+let inputData5 = allFormInput[5]
+
+if(inputData5.value > 100){
+
+  allErrorTags[5].innerHTML = "* Cannot Exceed 100 Baths"
+  doesFormErrorsExist = true;
+}
+
+
+
+let inputData6 = allFormInput[6]
+
+if(inputData6.value > 50000000){
+
+  allErrorTags[6].innerHTML = "* Cannot Exceed 50000000 SQFT"
+  doesFormErrorsExist = true;
+}
+
+
+let inputData7 = allFormInput[7]
+
+if(inputData7.value > 500000000){
+
+  allErrorTags[7].innerHTML = "* Cannot Exceed 500,000,000 Dollars"
+  doesFormErrorsExist = true;
+}
+
+let inputData8 = allFormInput[8]
+
+if(inputData8.value.length > 300){
+
+  allErrorTags[8].innerHTML = "* Cannot Exceed 300 characters "
+  doesFormErrorsExist = true;
+}
+
 
     //Prevent Post event if errors are found
     if(doesFormErrorsExist){
